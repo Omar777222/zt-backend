@@ -1,0 +1,24 @@
+### Pruebas con la extension "REST Client" de VS Code (clic en "Send Request")
+
+### 1. Salud del servidor
+GET http://localhost:3000/api/health
+
+### 2. Login correcto (cambia la contraseña por la tuya)
+# @name login
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{ "username": "admin", "password": "Practica2026" }
+
+### 3. Dashboard con el token del login anterior
+GET http://localhost:3000/api/dashboard
+Authorization: Bearer {{login.response.body.token}}
+
+### 4. Dashboard SIN token (debe dar 401)
+GET http://localhost:3000/api/dashboard
+
+### 5. Login incorrecto (debe dar 401 y aparecer [AUTH_FAIL] en la terminal)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{ "username": "admin", "password": "incorrecta" }
